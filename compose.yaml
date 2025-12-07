@@ -1,20 +1,29 @@
+version: '3.8'
 
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
+  # Servicio de la Aplicación Web (PHP + Apache)
+  app:
+    build: .
+    ports:
+      - "8080:80" # La web se verá en localhost:8080
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      # Sobrescribimos la conexión para que use el servicio 'database' de abajo
+      - DATABASE_URL=mysql://root:root@database:3306/viajes_para_ti?serverVersion=8.0&charset=utf8mb4
+    depends_on:
+      - database
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - .:/var/www/html # Sincroniza tu código con el contenedor
+
+  # Servicio de Base de Datos
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: viajes_para_ti
+    ports:
+      - "3307:3306" # Puerto externo 3307 para no chocar con tu XAMPP (3306)
+    volumes:
+      - db_data:/var/lib/mysql
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  db_data:

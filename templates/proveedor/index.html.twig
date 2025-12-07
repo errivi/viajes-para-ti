@@ -3,56 +3,71 @@
 {% block title %}Listado de Proveedores{% endblock %}
 
 {% block body %}
-<div style="margin: 20px;">
-    <h1>Mis Proveedores</h1>
-    
-    <a href="{{ path('app_proveedor_new') }}" style="background: green; color: white; padding: 10px; text-decoration: none;">+ Nuevo Proveedor</a>
-    <br><br>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 text-primary"><i class="bi bi-people-fill"></i> Gestión de Proveedores</h1>
+    <a href="{{ path('app_proveedor_new') }}" class="btn btn-success shadow-sm">
+        <i class="bi bi-plus-lg"></i> Nuevo Proveedor
+    </a>
+</div>
 
-    <table border="1" style="width: 100%; border-collapse: collapse;">
-        <thead>
-            <tr style="background-color: #f0f0f0;">
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Teléfono</th>
-                <th>Tipo</th>
-                <th>Activo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {# Aquí empieza la magia de Twig: un bucle FOR #}
-            {% for proveedor in proveedores %}
-                <tr>
-                    <td>{{ proveedor.nombre }}</td>
-                    <td>{{ proveedor.email }}</td>
-                    <td>{{ proveedor.telefono }}</td>
-                    <td>{{ proveedor.tipo }}</td>
-                    <td>
-                        {% if proveedor.activo %}
-                            <span style="color: green;">Sí</span>
-                        {% else %}
-                            <span style="color: red;">No</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ path('app_proveedor_edit', {'id': proveedor.id}) }}" style="color: blue;">Editar</a>
-                        |                   
-                        
-                        <form method="post" action="{{ path('app_proveedor_delete', {'id': proveedor.id}) }}" style="display: inline-block; margin-left: 5px;" onsubmit="return confirm('¿Seguro que quieres borrar este proveedor?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ proveedor.id) }}">
-                            <button type="submit" style="color: red; background: none; border: none; cursor: pointer; text-decoration: underline;">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="6" style="text-align: center;">No hay proveedores registrados aún.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive"> <table class="table table-hover table-striped mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Nombre</th>
+                        <th>Contacto</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Última Act.</th>
+                        <th class="text-end pe-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for proveedor in proveedores %}
+                    <tr>
+                        <td class="ps-4 fw-bold text-dark">{{ proveedor.nombre }}</td>
+                        <td>
+                            <div class="small text-muted"><i class="bi bi-envelope"></i> {{ proveedor.email }}</div>
+                            <div class="small text-muted"><i class="bi bi-telephone"></i> {{ proveedor.telefono }}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-info text-dark">{{ proveedor.tipo }}</span>
+                        </td>
+                        <td>
+                            {% if proveedor.activo %}
+                                <span class="badge rounded-pill bg-success">Activo</span>
+                            {% else %}
+                                <span class="badge rounded-pill bg-secondary">Inactivo</span>
+                            {% endif %}
+                        </td>
+                        <td class="small text-muted">
+                            {{ proveedor.fechaActualizacion|date('d/m/Y H:i') }}
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="{{ path('app_proveedor_edit', {'id': proveedor.id}) }}" class="btn btn-sm btn-outline-primary me-1" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            
+                            <form method="post" action="{{ path('app_proveedor_delete', {'id': proveedor.id}) }}" class="d-inline-block" onsubmit="return confirm('¿Seguro que quieres eliminar a {{ proveedor.nombre }}?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ proveedor.id) }}">
+                                <button class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                            No hay proveedores registrados todavía.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

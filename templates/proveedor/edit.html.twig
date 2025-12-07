@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editar Proveedor{% endblock %}
+{% block title %}Nuevo Proveedor{% endblock %}
 
 {% block body %}
-<div style="margin: 20px; max-width: 600px;">
-    <h1>Editar Proveedor: {{ proveedor.nombre }}</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        
-        <button type="submit" style="background: orange; color: white; padding: 10px; margin-top: 10px;">
-            Actualizar Cambios
-        </button>
-    {{ form_end(form) }}
-
-    <br>
-    <a href="{{ path('app_proveedores') }}">Cancelar</a>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h4 class="mb-0 text-primary">Editar Proveedor</h4>
+            </div>
+            <div class="card-body p-4">
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="Actualizar" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save"></i> Guardar Proveedor
+                        </button>
+                        <a href="{{ path('app_proveedores') }}" class="btn btn-light text-muted">
+                            Cancelar
+                        </a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

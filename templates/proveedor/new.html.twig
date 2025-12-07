@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Proveedor{% endblock %}
+
+{% block body %}
+<div style="margin: 20px; max-width: 600px;">
+    <h1>Crear Nuevo Proveedor</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        
+        <button type="submit" style="background: blue; color: white; padding: 10px; margin-top: 10px;">
+            Guardar Proveedor
+        </button>
+    {{ form_end(form) }}
+    
+    <br>
+    <a href="{{ path('app_proveedores') }}">Volver al listado</a>
+</div>
+{% endblock %}

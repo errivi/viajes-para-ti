@@ -21,7 +21,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: viajes_para_ti
     ports:
-      - "3307:3306" # Puerto externo 3307 para no chocar con tu XAMPP (3306)
+      - "3307:3306" # Puerto externo 3307 para no chocar con XAMPP (3306)
     volumes:
       - db_data:/var/lib/mysql
 

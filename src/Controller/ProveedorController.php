@@ -80,7 +80,7 @@ class ProveedorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Actualizamos solo la fecha de modificación [cite: 21]
+            // Actualizamos solo la fecha de modificación 
             $proveedor->setFechaActualizacion(new \DateTime());
 
             // No hace falta persist() porque el objeto ya existe, solo flush()

@@ -64,8 +64,8 @@ Si prefiere usar su propio servidor local (requiere PHP 8.2+ y MySQL):
     php bin/console doctrine:database:create
     php bin/console doctrine:migrations:migrate
     ```
-4.  **Iniciar:**
+4.  **Iniciar Servidor:**
     ```bash
-    symfony server:start
+    php -S 127.0.0.1:8000 -t public
     ```
     Accede a: **http://127.0.0.1:8000/proveedores**

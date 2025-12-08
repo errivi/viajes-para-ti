@@ -7,13 +7,14 @@ El objetivo es ofrecer una herramienta rápida y sencilla para el departamento d
 ## 🛠️ Tecnologías Utilizadas
 
 * **Backend:** PHP 8.2, Symfony 6.4, Doctrine ORM.
+* **Calidad & Testing:** PHPUnit (Tests Funcionales), Symfony Validator.
 * **Base de Datos:** MySQL 8.
 * **Frontend:** Twig, Bootstrap 5 (Responsive Design).
 * **Infraestructura:** Docker & Docker Compose.
 
 ## 📸 Vistas de la Aplicación
 
-| Listado (Escritorio) | Formulario de Creación/Edición |
+| Listado con Buscador | Formulario de Creación/Edición |
 | -------------------- | ---------------------- |
 | ![Listado](assets/listado.jpg) | ![Formulario](assets/formulario.jpg) |
 
@@ -69,3 +70,27 @@ Si prefiere usar su propio servidor local (requiere PHP 8.2+ y MySQL):
     php -S 127.0.0.1:8000 -t public
     ```
     Accede a: **http://127.0.0.1:8000/proveedores**
+
+---
+
+## 🧪 Ejecución de Tests Automáticos
+
+El proyecto incluye tests funcionales con **PHPUnit** para garantizar la estabilidad.
+
+**En Docker:**
+```bash
+# Preparar BD de test (una sola vez)
+docker compose exec app php bin/console --env=test doctrine:database:create
+docker compose exec app php bin/console --env=test doctrine:schema:create
+
+# Ejecutar tests
+docker compose exec app php bin/phpunit
+```
+**En Local:**
+```bash
+# Preparar BD de test (una sola vez)
+php bin/console --env=test doctrine:database:create
+php bin/console --env=test doctrine:schema:create
+
+# Ejecutar tests
+php bin/phpunit

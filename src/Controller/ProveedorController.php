@@ -47,6 +47,7 @@ class ProveedorController extends AbstractController
             // Guardamos en Base de Datos
             $entityManager->persist($proveedor); // "Prepara este objeto"
             $entityManager->flush();             // "Ejecuta el SQL INSERT"
+            $this->addFlash('success', '¡Proveedor creado con éxito!');
 
             // Redirigimos al listado para ver el resultado
             return $this->redirectToRoute('app_proveedores');
@@ -71,6 +72,7 @@ class ProveedorController extends AbstractController
 
             // No hace falta persist() porque el objeto ya existe, solo flush()
             $entityManager->flush();
+            $this->addFlash('success', '¡Proveedor actualizado con éxito!');
 
             return $this->redirectToRoute('app_proveedores');
         }
@@ -87,6 +89,7 @@ class ProveedorController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$proveedor->getId(), $request->request->get('_token'))) {
             $entityManager->remove($proveedor);
             $entityManager->flush();
+            $this->addFlash('success', '¡Proveedor borrado con éxito!');
         }
 
         return $this->redirectToRoute('app_proveedores');

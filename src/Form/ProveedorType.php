@@ -17,12 +17,7 @@ class ProveedorType extends AbstractType
             ->add('email')
             ->add('telefono')
             ->add('tipo', ChoiceType::class, [
-                'choices'  => [
-                    'Hotel' => 'Hotel',
-                    'Crucero' => 'Crucero',
-                    'Estación de esquí' => 'Estación de esquí',
-                    'Parque temático' => 'Parque temático',
-                ],
+                'choices'  => array_combine(Proveedor::TIPOS, Proveedor::TIPOS),
                 'placeholder' => 'Selecciona un tipo',
             ])            
             ->add('activo')

@@ -11,6 +11,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['email'], message: 'Ya existe un proveedor con este email.')]
 class Proveedor
 {
+    // Definimos listado de tipos permitidos
+    public const TIPOS_PERMITIDOS = ['Local', 'Nacional', 'Internacional'];
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -39,6 +42,8 @@ class Proveedor
     private ?string $telefono = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Debes seleccionar un tipo de proveedor.')]
+    #[Assert\Choice(choices: self::TIPOS, message: 'El tipo seleccionado no es válido.')]
     private ?string $tipo = null;
 
     #[ORM\Column]

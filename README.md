@@ -20,34 +20,39 @@ El objetivo es ofrecer una herramienta rápida y sencilla para el departamento d
 
 *(La aplicación es totalmente responsive y adaptable a móviles)*
 
-## 🚀 Instalación y Despliegue
-
 ### Opción A: Despliegue con Docker 🐳 (Recomendada)
 
-Este método garantiza que la aplicación funcione en un entorno aislado idéntico al de desarrollo.
+1.  **Clonar y configurar el entorno:**
+    ```bash
+    git clone [https://github.com/errivi/viajes-para-ti.git](https://github.com/errivi/viajes-para-ti.git)
+    cd viajes-para-ti
+    cp .env.example .env
+    ```
 
-1.  **Levantar los servicios:**
+2.  **Levantar los servicios:**
     ```bash
     docker compose up -d --build
     ```
+    > **Nota para Linux:** Si usa una versión antigua de Docker o Linux nativo, es posible que necesite permisos de superusuario y el guion: `sudo docker-compose up -d --build`.
 
-2.  **Instalar dependencias y preparar Base de Datos:**
-    *(Ejecutar estos comandos una vez el contenedor esté en marcha)*
+3.  **Instalar dependencias y preparar Base de Datos:**
+    *(Ejecutar una vez los contenedores estén en marcha)*
     ```bash
-    # Instalar librerías de PHP (evita problemas de volúmenes vacíos)
+    # Instalar librerías PHP
     docker compose exec app composer install
 
-    # Crear tablas en la base de datos
+    # Ejecutar migraciones
     docker compose exec app php bin/console doctrine:migrations:migrate
+
     # (Opcional) Cargar datos de prueba
     docker compose exec app php bin/console doctrine:fixtures:load
     ```
+    *(Recuerde usar `sudo docker-compose ...` si está en Linux).*
 
-3.  **Acceder a la aplicación:**
+4.  **Acceder a la aplicación:**
     👉 **http://localhost:8080/index.php/proveedores**
 
-> **⚠️ Nota sobre Rendimiento en Windows:**
-> Si ejecuta este proyecto en Docker Desktop para Windows montando el volumen desde NTFS, es posible que note tiempos de carga elevados en modo desarrollo debido al overhead de I/O. En entornos Linux nativos, la aplicación funciona a velocidad instantánea.
+> **⚠️ Nota sobre Rendimiento en Windows:** Si ejecuta esto en Docker Desktop para Windows, es normal notar cierta latencia en la carga debido al sistema de archivos. En Linux/Producción la velocidad es instantánea.
 
 ---
 

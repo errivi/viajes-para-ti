@@ -66,6 +66,8 @@ Si prefiere usar su propio servidor local (requiere PHP 8.2+ y MySQL):
     ```bash
     php bin/console doctrine:database:create
     php bin/console doctrine:migrations:migrate
+    # (Opcional) Cargar datos de prueba
+    php bin/console doctrine:fixtures:load
     ```
 4.  **Iniciar Servidor:**
     ```bash

@@ -9,6 +9,25 @@
         <i class="bi bi-plus-lg"></i> Nuevo Proveedor
     </a>
 </div>
+<div class="card mb-4 shadow-sm border-0 bg-light">
+    <div class="card-body p-3">
+        <form method="get" action="{{ path('app_proveedores') }}" class="row g-2 align-items-center">
+            <div class="col-auto">
+                <i class="bi bi-search text-muted"></i>
+            </div>
+            <div class="col">
+                <input type="text" name="q" class="form-control border-0 bg-transparent" placeholder="Buscar por nombre, email o tipo..." value="{{ busqueda }}">
+            </div>
+            <div class="col-auto">
+                {% if busqueda %}
+                    <a href="{{ path('app_proveedores') }}" class="btn btn-sm btn-outline-secondary">Limpiar</a>
+                {% else %}
+                    <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="card shadow-sm border-0">
     <div class="card-body p-0">

@@ -12,16 +12,29 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProveedorController extends AbstractController
 {
     #[Route('/proveedores', name: 'app_proveedores')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(\Symfony\Component\HttpFoundation\Request $request, EntityManagerInterface $entityManager): Response
     {
-        // 1. Pedir al "Repositorio" todos los proveedores
-        // (Equivalente a SELECT * FROM proveedor)
+        $busqueda = $request->query->get('q'); // Obtiene lo que hay en ?q=...
         $repository = $entityManager->getRepository(Proveedor::class);
-        $proveedores = $repository->findAll();
 
-        // 2. Pasar los datos a la vista (Twig)
+        if ($busqueda) {
+            // Consulta avanzada con QueryBuilder para buscar por nombre O email O tipo
+            $proveedores = $repository->createQueryBuilder('p')
+                ->where('p.nombre LIKE :val')
+                ->orWhere('p.email LIKE :val')
+                ->orWhere('p.tipo LIKE :val')
+                ->setParameter('val', '%' . $busqueda . '%')
+                ->orderBy('p.id', 'DESC')
+                ->getQuery()
+                ->getResult();
+        } else {
+            // Si no hay búsqueda, traer todos (ordenados por ID descendente para ver los nuevos primero)
+            $proveedores = $repository->findBy([], ['id' => 'DESC']);
+        }
+
         return $this->render('proveedor/index.html.twig', [
             'proveedores' => $proveedores,
+            'busqueda' => $busqueda, // Pasamos el término para pintarlo en el input
         ]);
     }
 

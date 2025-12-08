@@ -39,6 +39,8 @@ Este método garantiza que la aplicación funcione en un entorno aislado idénti
 
     # Crear tablas en la base de datos
     docker compose exec app php bin/console doctrine:migrations:migrate
+    # (Opcional) Cargar datos de prueba
+    docker compose exec app php bin/console doctrine:fixtures:load
     ```
 
 3.  **Acceder a la aplicación:**

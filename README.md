@@ -15,7 +15,7 @@ El objetivo es ofrecer una herramienta rápida y sencilla para el departamento d
 
 | Listado (Escritorio) | Formulario de Creación/Edición |
 | -------------------- | ---------------------- |
-| ![Listado](assets/listado.png) | ![Formulario](assets/formulario.png) |
+| ![Listado](assets/listado.jpg) | ![Formulario](assets/formulario.jpg) |
 
 *(La aplicación es totalmente responsive y adaptable a móviles)*
 

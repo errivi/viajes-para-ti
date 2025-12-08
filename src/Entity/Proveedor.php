@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Proveedor
 {
     // Definimos listado de tipos permitidos
-    public const TIPOS_PERMITIDOS = ['Local', 'Nacional', 'Internacional'];
+    public const TIPOS = ['Local', 'Nacional', 'Internacional'];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
